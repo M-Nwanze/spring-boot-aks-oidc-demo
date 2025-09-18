@@ -40,3 +40,9 @@ terraform/.terraform.lock.hcl
 node_modules/
 *.jar
 target/   
+# Terraform
+terraform/.terraform/
+terraform/.terraform.rc
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
+terraform/.terraform.lock.hcl   
