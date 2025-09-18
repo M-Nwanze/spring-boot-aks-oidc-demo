@@ -27,13 +27,26 @@ jobs:
         tenant-id: ${{ secrets.AZURE_TENANT_ID }}
         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
+    - name: Login to ACR
+      run: |
+        az acr login --name acrspring2025
+
+    - name: Build and Push Image to ACR
+      run: |
+        docker build -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TAG }} .
+        docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TAG }}
+
     - name: Set up Kubeconfig
       run: |
         az aks get-credentials --resource-group rg-aks-demo --name aks-demo-cluster
 
     - name: Deploy Application to AKS
       run: |
-        kubectl create deployment ${{ env.IMAGE_NAME }} --image=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TAG }} --dry-run=client -o yaml | kubectl apply -f -
-        kubectl expose deployment ${{ env.IMAGE_NAME }} --type=LoadBalancer --port=80 --target-port=8080   
-
-
+        kubectl create deployment ${{ env.IMAGE_NAME }} \
+          --image=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TAG }} \
+          --dry-run=client -o yaml | kubectl apply -f -
+        kubectl expose deployment ${{ env.IMAGE_NAME }} \
+          --type=LoadBalancer \
+          --port=80 \
+          --target-port=8080   
+          
