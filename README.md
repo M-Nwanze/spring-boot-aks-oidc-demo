@@ -36,7 +36,10 @@ graph LR
     C -->|AuthZ| D[Azure]
     D --> E[AKS Cluster]
     D --> F[ACR / GHCR]
-    E --> G[Pod: spring-boot-demo]   
+    E --> G[Pod: spring-boot-demo] 
+    ```
+
+
 
     ### 🔗 How It Works
 
@@ -53,6 +56,7 @@ graph LR
 
 - ✅ **No secrets in repo** — only OIDC federated identity
 - ✅ **Minimal GitHub permissions**:
+
   ```yaml
   permissions:
     id-token: write
