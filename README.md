@@ -36,12 +36,10 @@ graph LR
     C -->|AuthZ| D[Azure]
     D --> E[AKS Cluster]
     D --> F[ACR / GHCR]
-    E --> G[Pod: spring-boot-demo] 
-    ```
+    E --> G[Pod: spring-boot-demo]
+```
 
-
-
-    ### 🔗 How It Works
+### 🔗 How It Works
 
 1. Push to `main` triggers the CI/CD pipeline.
 2. GitHub Actions uses **OIDC** to authenticate to **Azure AD**.
@@ -49,6 +47,7 @@ graph LR
 4. Terraform provisions AKS and registry (ACR).
 5. App is built, containerized, and pushed.
 6. Kubernetes deploys the Pod via `kubectl apply`.
+
 
 ---
 
@@ -140,6 +139,5 @@ Happy to connect and collaborate!
 
 ---
 
-> ✅ **Final Commit Message:**  
-> `git commit -m "docs: add project summary — secure CI/CD with OIDC, Terraform, and kubectl apply"`
->
+> 🧹 **Note**: The latest commit shows a failed pipeline because Azure resources were deleted after completion.  
+> All previous runs succeeded. The README now renders correctly — this project is complete and cleaned up.
