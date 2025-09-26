@@ -34,4 +34,4 @@ jobs:
       - name: Deploy Application to AKS
         run: |
           kubectl create deployment ${{ env.IMAGE_NAME }} --image=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TAG }} --dry-run=client -o yaml | kubectl apply -f -
-          kubectl expose deployment ${{ env.IMAGE_NAME }} --type=LoadBalancer --port=80 --target-port=8080   
+          kubectl create service loadbalancer ${{ env.IMAGE_NAME }} --tcp=80:8080 --dry-run=client -o yaml | kubectl apply -f -   
